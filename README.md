@@ -62,7 +62,12 @@ js/main.js
 assets/imagenes/
 ```
 
+## Publicar en GitHub Pages
 
+Sube **el contenido** de esta carpeta a la raíz del repositorio, no la carpeta en sí.
+En la raíz deben quedar `index.html`, `css/`, `js/` y `assets/`.
+
+Luego: *Settings → Pages → Source: Deploy from a branch → Branch: `main` / `root`.*
 
 ## Accesibilidad
 

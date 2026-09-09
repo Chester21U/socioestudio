@@ -43,6 +43,20 @@
     /* --- Cabecera compacta al hacer scroll ------------------------------ */
     const cabecera = document.getElementById('cabecera');
 
+    /* Alto desplazable guardado en memoria.
+       Leer scrollHeight dentro del scroll obliga al navegador a recalcular
+       toda la maqueta en cada cuadro; es la causa más común de scroll trabado.
+       Aquí se mide una vez y se vuelve a medir solo cuando algo cambia. */
+    let altoDesplazable = 0;
+    function medirAlto() {
+      altoDesplazable = document.documentElement.scrollHeight - window.innerHeight;
+    }
+    medirAlto();
+    window.addEventListener('resize', medirAlto, { passive: true });
+    if ('ResizeObserver' in window) {
+      new ResizeObserver(medirAlto).observe(document.body);
+    }
+
     /* --- Barra de progreso de lectura ----------------------------------- */
     const barra = document.getElementById('barra-progreso');
 
@@ -52,8 +66,7 @@
       if (cabecera) cabecera.classList.toggle('compacta', y > 24);
 
       if (barra) {
-        const alto = document.documentElement.scrollHeight - window.innerHeight;
-        const avance = alto > 0 ? y / alto : 0;
+        const avance = altoDesplazable > 0 ? y / altoDesplazable : 0;
         barra.style.transform = 'scaleX(' + avance + ')';
       }
     }
@@ -558,8 +571,7 @@
 
       function refrescarSubir() {
         const y     = window.scrollY;
-        const alto  = document.documentElement.scrollHeight - window.innerHeight;
-        const razon = alto > 0 ? Math.min(y / alto, 1) : 0;
+        const razon = altoDesplazable > 0 ? Math.min(y / altoDesplazable, 1) : 0;
 
         btnSubir.classList.toggle('visible', y > 600);
         if (anilloAvance) anilloAvance.style.strokeDashoffset = perimetro * (1 - razon);
@@ -1583,8 +1595,9 @@
     }
 
     /* Las manchas de acuarela del hero se mueven a distinta velocidad */
+    const punteroGrueso = window.matchMedia('(pointer: coarse)').matches;
     const manchas = document.querySelectorAll('#inicio .mancha');
-    if (manchas.length && !movimientoReducido) {
+    if (manchas.length && !movimientoReducido && !punteroGrueso) {
       let pendienteParallax = false;
 
       window.addEventListener('scroll', function () {
