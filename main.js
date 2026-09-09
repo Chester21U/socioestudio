@@ -87,6 +87,12 @@
       iconoCerrar.classList.toggle('hidden', !visible);
       btnMenu.setAttribute('aria-expanded', String(visible));
       btnMenu.setAttribute('aria-label', visible ? 'Cerrar menú de navegación' : 'Abrir menú de navegación');
+
+      // Con el menú desplegado se apartan los botones flotantes
+      document.body.classList.toggle('menu-abierto', visible);
+
+      // El menú vuelve a su inicio cada vez que se abre
+      if (visible) menuMovil.scrollTop = 0;
     }
 
     if (btnMenu) {
