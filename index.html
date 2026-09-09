@@ -34,19 +34,36 @@
   <!-- ===== Tipografías · Merriweather para títulos, Inter para texto ===== -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="style"
-        href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@400;500;600;700&display=swap"
-        onload="this.rel='stylesheet'">
-  <noscript><link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@400;500;600;700&display=swap"></noscript>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- ===== Tailwind CSS (CDN) ===== -->
-  <!-- ===== Tailwind compilado ·  solo las clases que usa esta página =====
-       Antes se cargaba el CDN (cdn.tailwindcss.com), que descarga cerca de
-       400 KB de JavaScript y genera el CSS dentro del navegador en cada
-       visita. Este archivo trae ya generado lo mismo en unos 20 KB.
-       Si agregas clases nuevas de Tailwind, hay que recompilarlo. -->
-  <link rel="stylesheet" href="./tailwind.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            /* Paleta heredada del Juego Sociológico */
+            navy:    { DEFAULT: '#1B2A4A', 2: '#233457', 3: '#0E1524' },
+            crema:   '#F7F3E8',
+            papel:   '#FFFDF8',
+            oro:     { DEFAULT: '#E8B04B', suave: '#FDEFCB', hondo: '#C98F2E' },
+            coral:   { DEFAULT: '#E85B4E', suave: '#FBEAE8', hondo: '#C4453A' },
+            salvia:  { DEFAULT: '#6B9080', suave: '#E7F3EC' },
+            tinta:   '#22283B',
+            grafito: '#5B6280',
+            humo:    '#8A90A8'
+          },
+          fontFamily: {
+            titulo: ['Merriweather', 'Georgia', 'serif'],
+            texto:  ['Inter', 'system-ui', 'sans-serif']
+          },
+          maxWidth: { lectura: '68ch' },
+          borderRadius: { '4xl': '2rem', '5xl': '2.75rem' }
+        }
+      }
+    }
+  </script>
 
   <!-- ===== Estilos personalizados ===== -->
   <link rel="stylesheet" href="./styles.css">
@@ -135,14 +152,14 @@
       <!-- Menú desplegable · móvil -->
       <div id="menu-movil" class="menu-movil xl:hidden">
         <ul class="mb-4 rounded-4xl bg-papel border border-[color:var(--linea)] shadow-[var(--sombra)] p-3">
-          <li><a href="#inicio"     class="menu-item flex items-center gap-3 rounded-2xl px-4 py-3"><span class="text-lg">🏠</span> Inicio</a></li>
-          <li><a href="#modulo-1"   class="menu-item flex items-center gap-3 rounded-2xl px-4 py-3"><span class="text-lg">🔬</span> Ciencia y ciencias sociales</a></li>
-          <li><a href="#modulo-2"   class="menu-item flex items-center gap-3 rounded-2xl px-4 py-3"><span class="text-lg">🧭</span> Conceptualización</a></li>
-          <li><a href="#modulo-3"   class="menu-item flex items-center gap-3 rounded-2xl px-4 py-3"><span class="text-lg">⏳</span> Desarrollo histórico</a></li>
-          <li><a href="#modulo-4"   class="menu-item flex items-center gap-3 rounded-2xl px-4 py-3"><span class="text-lg">👤</span> Precursores</a></li>
-          <li><a href="#modulo-5"   class="menu-item flex items-center gap-3 rounded-2xl px-4 py-3"><span class="text-lg">📚</span> Corrientes</a></li>
-          <li><a href="#evaluacion" class="menu-item flex items-center gap-3 rounded-2xl px-4 py-3"><span class="text-lg">✏️</span> Evaluación</a></li>
-          <li><a href="#equipo"     class="menu-item flex items-center gap-3 rounded-2xl px-4 py-3"><span class="text-lg">👥</span> Creadores</a></li>
+          <li><a href="#inicio"     class="menu-item flex items-center gap-3 rounded-2xl px-4 py-3 hover:bg-crema transition-colors"><span class="text-lg">🏠</span> Inicio</a></li>
+          <li><a href="#modulo-1"   class="menu-item flex items-center gap-3 rounded-2xl px-4 py-3 hover:bg-crema transition-colors"><span class="text-lg">🔬</span> Ciencia y ciencias sociales</a></li>
+          <li><a href="#modulo-2"   class="menu-item flex items-center gap-3 rounded-2xl px-4 py-3 hover:bg-crema transition-colors"><span class="text-lg">🧭</span> Conceptualización</a></li>
+          <li><a href="#modulo-3"   class="menu-item flex items-center gap-3 rounded-2xl px-4 py-3 hover:bg-crema transition-colors"><span class="text-lg">⏳</span> Desarrollo histórico</a></li>
+          <li><a href="#modulo-4"   class="menu-item flex items-center gap-3 rounded-2xl px-4 py-3 hover:bg-crema transition-colors"><span class="text-lg">👤</span> Precursores</a></li>
+          <li><a href="#modulo-5"   class="menu-item flex items-center gap-3 rounded-2xl px-4 py-3 hover:bg-crema transition-colors"><span class="text-lg">📚</span> Corrientes</a></li>
+          <li><a href="#evaluacion" class="menu-item flex items-center gap-3 rounded-2xl px-4 py-3 hover:bg-crema transition-colors"><span class="text-lg">✏️</span> Evaluación</a></li>
+          <li><a href="#equipo"     class="menu-item flex items-center gap-3 rounded-2xl px-4 py-3 hover:bg-crema transition-colors"><span class="text-lg">👥</span> Creadores</a></li>
           <li class="pt-1">
             <!-- ► Interruptor de tema · versión ancha -->
             <button type="button" class="btn-tema btn-tema-ancho" data-tema-btn
@@ -950,15 +967,15 @@
                 </div>
               </div>
 
-              <!-- ► IMAGEN 1 · exporta tu diseño como assets/imagenes/timeline-1.jpg -->
+              <!-- ► IMAGEN 1 · exporta tu diseño como assets/imagenes/timeline-1.png -->
               <figure class="relative">
-                <img src="./ilustracion.jpg" width="406" height="390"
+                <img src="./ilustracion.png" width="406" height="390"
                      alt="Ilustración de la línea de tiempo: la Ilustración y el Siglo de las Luces"
-                     loading="lazy" decoding="async" data-marco data-ampliable
+                     loading="lazy" data-marco data-ampliable
                      class="w-full h-72 md:h-96 object-cover rounded-4xl border border-[color:var(--linea)] shadow-[var(--sombra)]">
                 <div class="marco-vacio hidden w-full h-72 md:h-96" data-marco-vacio>
                   <p class="font-titulo font-bold text-navy">Imagen 1</p>
-                  <p class="mt-1 text-sm">assets/imagenes/timeline-1.jpg</p>
+                  <p class="mt-1 text-sm">assets/imagenes/timeline-1.png</p>
                 </div>
                 <figcaption class="mt-4 text-sm font-semibold text-navy/60">Grandes pensadores ilustrados.</figcaption>
               </figure>
@@ -990,13 +1007,13 @@
 
               <!-- ► IMAGEN 2 -->
               <figure class="relative">
-                <img src="./revolucion-francesa.jpg" width="431" height="342"
+                <img src="./revolucion-francesa.png" width="431" height="342"
                      alt="Ilustración de la línea de tiempo: la Revolución Francesa"
-                     loading="lazy" decoding="async" data-marco data-ampliable
+                     loading="lazy" data-marco data-ampliable
                      class="w-full h-72 md:h-96 object-cover rounded-4xl border border-[color:var(--linea)] shadow-[var(--sombra)]">
                 <div class="marco-vacio hidden w-full h-72 md:h-96" data-marco-vacio>
                   <p class="font-titulo font-bold text-navy">Imagen 2</p>
-                  <p class="mt-1 text-sm">assets/imagenes/timeline-2.jpg</p>
+                  <p class="mt-1 text-sm">assets/imagenes/timeline-2.png</p>
                 </div>
                 <figcaption class="mt-4 text-sm font-semibold text-navy/60">Del feudalismo al capitalismo.</figcaption>
               </figure>
@@ -1029,13 +1046,13 @@
 
               <!-- ► IMAGEN 3 -->
               <figure class="relative">
-                <img src="./revolucion-industrial.jpg" width="1200" height="812"
+                <img src="./revolucion-industrial.jpg" width="1541" height="1043"
                      alt="Ilustración de la línea de tiempo: la Revolución Industrial"
-                     loading="lazy" decoding="async" data-marco data-ampliable
+                     loading="lazy" data-marco data-ampliable
                      class="w-full h-72 md:h-96 object-cover rounded-4xl border border-[color:var(--linea)] shadow-[var(--sombra)]">
                 <div class="marco-vacio hidden w-full h-72 md:h-96" data-marco-vacio>
                   <p class="font-titulo font-bold text-navy">Imagen 3</p>
-                  <p class="mt-1 text-sm">assets/imagenes/timeline-3.jpg</p>
+                  <p class="mt-1 text-sm">assets/imagenes/timeline-3.png</p>
                 </div>
                 <figcaption class="mt-4 text-sm font-semibold text-navy/60">La máquina de vapor y el conflicto de clases.</figcaption>
               </figure>
@@ -1074,11 +1091,11 @@
               <figure class="relative">
                 <img src="./augusto-conte.png" width="331" height="217"
                      alt="Ilustración de la línea de tiempo: los precursores de la sociología"
-                     loading="lazy" decoding="async" data-marco data-ampliable
+                     loading="lazy" data-marco data-ampliable
                      class="w-full h-72 md:h-96 object-cover rounded-4xl border border-[color:var(--linea)] shadow-[var(--sombra)]">
                 <div class="marco-vacio hidden w-full h-72 md:h-96" data-marco-vacio>
                   <p class="font-titulo font-bold text-navy">Imagen 4</p>
-                  <p class="mt-1 text-sm">assets/imagenes/timeline-4.jpg</p>
+                  <p class="mt-1 text-sm">assets/imagenes/timeline-4.png</p>
                 </div>
                 <figcaption class="mt-4 text-sm font-semibold text-navy/60">Los fundadores de la disciplina.</figcaption>
               </figure>
@@ -1135,11 +1152,11 @@
               <figure class="relative">
                 <img src="./pierre.png" width="443" height="281"
                      alt="Ilustración de la línea de tiempo: la sociología del siglo XX"
-                     loading="lazy" decoding="async" data-marco data-ampliable
+                     loading="lazy" data-marco data-ampliable
                      class="w-full h-72 md:h-96 object-cover rounded-4xl border border-[color:var(--linea)] shadow-[var(--sombra)]">
                 <div class="marco-vacio hidden w-full h-72 md:h-96" data-marco-vacio>
                   <p class="font-titulo font-bold text-navy">Imagen 5</p>
-                  <p class="mt-1 text-sm">assets/imagenes/timeline-5.jpg</p>
+                  <p class="mt-1 text-sm">assets/imagenes/timeline-5.png</p>
                 </div>
                 <figcaption class="mt-4 text-sm font-semibold text-navy/60">Parsons, Merton, Coser, Bourdieu y Giddens.</figcaption>
               </figure>
@@ -1198,11 +1215,11 @@
               <figure class="relative">
                 <img src="./redes-sociales.png" width="454" height="229"
                      alt="Ilustración de la línea de tiempo: la sociología del siglo XXI"
-                     loading="lazy" decoding="async" data-marco data-ampliable
+                     loading="lazy" data-marco data-ampliable
                      class="w-full h-72 md:h-96 object-cover rounded-4xl border border-[color:var(--linea)] shadow-[var(--sombra)]">
                 <div class="marco-vacio hidden w-full h-72 md:h-96" data-marco-vacio>
                   <p class="font-titulo font-bold text-navy">Imagen 6</p>
-                  <p class="mt-1 text-sm">assets/imagenes/timeline-6.jpg</p>
+                  <p class="mt-1 text-sm">assets/imagenes/timeline-6.png</p>
                 </div>
                 <figcaption class="mt-4 text-sm font-semibold text-navy/60">Redes sociales y comunicación digital.</figcaption>
               </figure>
@@ -1259,9 +1276,9 @@
           <article class="tarjeta tarjeta-hover overflow-hidden revelar">
             <div class="relative bg-oro-suave px-8 pt-8 pb-6">
               <div class="flex items-center gap-5">
-                <img src="./timeline-1.jpg" width="520" height="520"
+                <img src="./timeline-1.png" width="520" height="520"
                      alt="Retrato de Henri de Saint-Simon"
-                     loading="lazy" decoding="async"
+                     loading="lazy"
                      class="w-24 h-24 rounded-full object-cover border-4 border-papel shadow-[var(--sombra)] shrink-0">
                 
                 
@@ -1309,9 +1326,9 @@
             <div class="relative bg-coral-suave px-8 pt-8 pb-6">
               <div class="flex items-center gap-5">
               
-                <img src="./timeline-2.jpg" width="520" height="520"
+                <img src="./timeline-2.png" width="520" height="520"
                      alt="Retrato de Auguste Comte"
-                     loading="lazy" decoding="async"
+                     loading="lazy"
                      class="w-24 h-24 rounded-full object-cover border-4 border-papel shadow-[var(--sombra)] shrink-0">
                 
                 
@@ -1372,9 +1389,9 @@
             <div class="relative bg-salvia-suave px-8 pt-8 pb-6">
               <div class="flex items-center gap-5">
                 
-                <img src="./timeline-3.jpg" width="520" height="520"
+                <img src="./timeline-3.png" width="520" height="520"
                      alt="Retrato de Herbert Spencer"
-                     loading="lazy" decoding="async"
+                     loading="lazy"
                      class="w-24 h-24 rounded-full object-cover border-4 border-papel shadow-[var(--sombra)] shrink-0">
                 
                 
@@ -1421,9 +1438,9 @@
             <div class="relative bg-oro-suave px-8 pt-8 pb-6">
               <div class="flex items-center gap-5">
                 
-                <img src="./timeline-4.jpg" width="520" height="520"
+                <img src="./timeline-4.png" width="520" height="520"
                      alt="Retrato de Émile Durkheim"
-                     loading="lazy" decoding="async"
+                     loading="lazy"
                      class="w-24 h-24 rounded-full object-cover border-4 border-papel shadow-[var(--sombra)] shrink-0">
               
                 
@@ -1489,9 +1506,9 @@
             <div class="relative bg-coral-suave px-8 pt-8 pb-6">
               <div class="flex items-center gap-5">
               
-                <img src="./timeline-5.jpg" width="520" height="520"
+                <img src="./timeline-5.png" width="520" height="520"
                      alt="Retrato de Karl Marx"
-                     loading="lazy" decoding="async"
+                     loading="lazy"
                      class="w-24 h-24 rounded-full object-cover border-4 border-papel shadow-[var(--sombra)] shrink-0">
                 
                 
@@ -1559,9 +1576,9 @@
             <div class="relative bg-salvia-suave px-8 pt-8 pb-6">
               <div class="flex items-center gap-5">
                 
-                <img src="./timeline-6.jpg" width="520" height="520"
+                <img src="./timeline-6.png" width="520" height="520"
                      alt="Retrato de Max Weber"
-                     loading="lazy" decoding="async"
+                     loading="lazy"
                      class="w-24 h-24 rounded-full object-cover border-4 border-papel shadow-[var(--sombra)] shrink-0">
                 
               
@@ -2537,9 +2554,9 @@
               <div class="ficha-cara ficha-frente">
                 <span class="ficha-cinta">⭐ Líder del equipo</span>
 
-                <img src="./equipo-abraham.jpg" width="600" height="600"
+                <img src="./equipo-abraham.jpg" width="900" height="900"
                      alt="Fotografía de Abraham Bladimir Umanzor Vásquez"
-                     loading="lazy" decoding="async" data-marco class="ficha-foto">
+                     loading="lazy" data-marco class="ficha-foto">
                 <div class="ficha-sinfoto hidden" data-marco-vacio>
                   <div class="text-center px-6">
                     <span class="text-4xl" aria-hidden="true">🖼️</span>
@@ -2646,9 +2663,9 @@
               <div class="ficha-cara ficha-frente">
                 <span class="ficha-cinta">🎲 Creador del juego</span>
 
-                <img src="./equipo-andy.jpg" width="600" height="600"
+                <img src="./equipo-andy.jpg" width="900" height="900"
                      alt="Fotografía de Andy Jhoan Navarrete Ramos"
-                     loading="lazy" decoding="async" data-marco class="ficha-foto">
+                     loading="lazy" data-marco class="ficha-foto">
                 <div class="ficha-sinfoto hidden" data-marco-vacio>
                   <div class="text-center px-6">
                     <span class="text-4xl" aria-hidden="true">🖼️</span>
@@ -2768,7 +2785,7 @@
                   <span class="relative shrink-0">
                     <img src="./catedratico-kevin.jpg" width="240" height="240"
                          alt="Fotografía del Lic. Kevin Francisco Muñoz Paniagua"
-                         loading="lazy" decoding="async" data-marco
+                         loading="lazy" data-marco
                          class="w-24 h-24 rounded-full object-cover border-4 border-oro shadow-[var(--sombra)]">
                     <span class="ficha-sinfoto hidden !static w-24 h-24 rounded-full border-2 border-white/25 text-2xl" data-marco-vacio aria-hidden="true">👤</span>
                     <span class="absolute -bottom-1 -right-1 grid place-items-center w-8 h-8 rounded-full bg-oro text-navy text-base shadow-[var(--sombra-sm)]" aria-hidden="true">🎓</span>
@@ -2895,6 +2912,6 @@
   </footer>
 
   <!-- ===== Lógica interactiva ===== -->
-  <script src="./main.js" defer></script>
+  <script src="./main.js"></script>
 </body>
 </html>

@@ -43,20 +43,6 @@
     /* --- Cabecera compacta al hacer scroll ------------------------------ */
     const cabecera = document.getElementById('cabecera');
 
-    /* Alto desplazable guardado en memoria.
-       Leer scrollHeight dentro del scroll obliga al navegador a recalcular
-       toda la maqueta en cada cuadro; es la causa más común de scroll trabado.
-       Aquí se mide una vez y se vuelve a medir solo cuando algo cambia. */
-    let altoDesplazable = 0;
-    function medirAlto() {
-      altoDesplazable = document.documentElement.scrollHeight - window.innerHeight;
-    }
-    medirAlto();
-    window.addEventListener('resize', medirAlto, { passive: true });
-    if ('ResizeObserver' in window) {
-      new ResizeObserver(medirAlto).observe(document.body);
-    }
-
     /* --- Barra de progreso de lectura ----------------------------------- */
     const barra = document.getElementById('barra-progreso');
 
@@ -66,7 +52,8 @@
       if (cabecera) cabecera.classList.toggle('compacta', y > 24);
 
       if (barra) {
-        const avance = altoDesplazable > 0 ? y / altoDesplazable : 0;
+        const alto = document.documentElement.scrollHeight - window.innerHeight;
+        const avance = alto > 0 ? y / alto : 0;
         barra.style.transform = 'scaleX(' + avance + ')';
       }
     }
@@ -100,12 +87,6 @@
       iconoCerrar.classList.toggle('hidden', !visible);
       btnMenu.setAttribute('aria-expanded', String(visible));
       btnMenu.setAttribute('aria-label', visible ? 'Cerrar menú de navegación' : 'Abrir menú de navegación');
-
-      // Con el menú desplegado se apartan los botones flotantes
-      document.body.classList.toggle('menu-abierto', visible);
-
-      // El menú vuelve a su inicio cada vez que se abre
-      if (visible) menuMovil.scrollTop = 0;
     }
 
     if (btnMenu) {
@@ -571,7 +552,8 @@
 
       function refrescarSubir() {
         const y     = window.scrollY;
-        const razon = altoDesplazable > 0 ? Math.min(y / altoDesplazable, 1) : 0;
+        const alto  = document.documentElement.scrollHeight - window.innerHeight;
+        const razon = alto > 0 ? Math.min(y / alto, 1) : 0;
 
         btnSubir.classList.toggle('visible', y > 600);
         if (anilloAvance) anilloAvance.style.strokeDashoffset = perimetro * (1 - razon);
@@ -1595,9 +1577,8 @@
     }
 
     /* Las manchas de acuarela del hero se mueven a distinta velocidad */
-    const punteroGrueso = window.matchMedia('(pointer: coarse)').matches;
     const manchas = document.querySelectorAll('#inicio .mancha');
-    if (manchas.length && !movimientoReducido && !punteroGrueso) {
+    if (manchas.length && !movimientoReducido) {
       let pendienteParallax = false;
 
       window.addEventListener('scroll', function () {
