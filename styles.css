@@ -1,0 +1,1697 @@
+/* ==========================================================================
+   Sociología · Unidad 1 — Guía digital de aprendizaje
+   styles.css · Estilos personalizados que complementan a Tailwind
+
+   La paleta es la misma del "Juego Sociológico" (Expedición Sociológica)
+   para que ambos productos se sientan como una sola pieza.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. VARIABLES
+   -------------------------------------------------------------------------- */
+:root {
+  /* Paleta heredada del juego */
+  --navy:        #1B2A4A;
+  --navy-2:      #233457;
+  --navy-3:      #0E1524;
+  --crema:       #F7F3E8;
+  --papel:       #FFFDF8;
+  --oro:         #E8B04B;
+  --oro-suave:   #FDEFCB;
+  --coral:       #E85B4E;
+  --coral-suave: #FBEAE8;
+  --salvia:      #6B9080;
+  --salvia-suave:#E7F3EC;
+  --tinta:       #22283B;
+  --grafito:     #5B6280;
+  --humo:        #8A90A8;
+
+  /* Superficies y trazos */
+  --linea:        rgba(27, 42, 74, .14);
+  --linea-fuerte: rgba(27, 42, 74, .28);
+
+  /* Sombras suaves, estilo "libro ilustrado" */
+  --sombra-sm: 0 2px 8px rgba(27, 42, 74, .06);
+  --sombra:    0 10px 26px rgba(27, 42, 74, .12);
+  --sombra-md: 0 16px 40px rgba(27, 42, 74, .14);
+  --sombra-lg: 0 28px 64px rgba(27, 42, 74, .18);
+
+  /* Radios generosos */
+  --radio-sm: 12px;
+  --radio:    20px;
+  --radio-lg: 32px;
+  --radio-xl: 44px;
+
+  /* Ritmo */
+  --transicion: 320ms cubic-bezier(.22, 1, .36, 1);
+}
+
+/* --------------------------------------------------------------------------
+   2. BASE
+   -------------------------------------------------------------------------- */
+* { -webkit-tap-highlight-color: transparent; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+}
+
+body {
+  background-color: var(--crema);
+  color: var(--tinta);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+::selection {
+  background-color: var(--oro);
+  color: var(--navy);
+}
+
+h1, h2, h3, h4 { text-wrap: balance; }
+p             { text-wrap: pretty; }
+
+/* Foco visible y consistente en todo el sitio */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+summary:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid var(--oro);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* Barra de desplazamiento a juego con el papel */
+::-webkit-scrollbar        { width: 12px; height: 12px; }
+::-webkit-scrollbar-track  { background: var(--crema); }
+::-webkit-scrollbar-thumb  { background: rgba(27,42,74,.22); border-radius: 999px; border: 3px solid var(--crema); }
+::-webkit-scrollbar-thumb:hover { background: rgba(27,42,74,.38); }
+
+/* --------------------------------------------------------------------------
+   3. TEXTURA DE PAPEL Y FONDOS DECORATIVOS
+   -------------------------------------------------------------------------- */
+
+/* Papel con grano muy sutil */
+.papel-grano { position: relative; }
+.papel-grano::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .35;
+  background-image:
+    radial-gradient(rgba(27,42,74,.05) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* Manchas de acuarela para el hero */
+.mancha {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(72px);
+  pointer-events: none;
+  opacity: .55;
+}
+
+/* Puntitos de guarda, como el interior de un libro */
+.guarda {
+  pointer-events: none;
+  background-image:
+    radial-gradient(var(--oro) 1.5px, transparent 1.6px);
+  background-size: 26px 26px;
+  opacity: .18;
+}
+
+/* --------------------------------------------------------------------------
+   4. COMPONENTES
+   -------------------------------------------------------------------------- */
+
+/* --- Botones ------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .6rem;
+  border-radius: 999px;
+  padding: 1rem 2rem;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1;
+  transition: transform var(--transicion), box-shadow var(--transicion), background-color var(--transicion);
+  will-change: transform;
+}
+
+.btn-oro {
+  background-color: var(--oro);
+  color: var(--navy);
+  box-shadow: 0 8px 0 0 #C98F2E, var(--sombra);
+}
+.btn-oro:hover  { transform: translateY(-3px); box-shadow: 0 11px 0 0 #C98F2E, var(--sombra-md); }
+.btn-oro:active { transform: translateY(4px);  box-shadow: 0 3px 0 0 #C98F2E, var(--sombra-sm); }
+
+.btn-coral {
+  background-color: var(--coral);
+  color: #FFFDF8;
+  box-shadow: 0 8px 0 0 #C4453A, var(--sombra);
+}
+.btn-coral:hover  { transform: translateY(-3px); box-shadow: 0 11px 0 0 #C4453A, var(--sombra-md); }
+.btn-coral:active { transform: translateY(4px);  box-shadow: 0 3px 0 0 #C4453A, var(--sombra-sm); }
+
+.btn-contorno {
+  background-color: transparent;
+  color: var(--navy);
+  border: 2px solid var(--linea-fuerte);
+}
+.btn-contorno:hover {
+  border-color: var(--navy);
+  background-color: rgba(27,42,74,.05);
+  transform: translateY(-2px);
+}
+
+/* --- Tarjetas ------------------------------------------------------------ */
+.tarjeta {
+  background-color: var(--papel);
+  border: 1px solid var(--linea);
+  border-radius: var(--radio-lg);
+  box-shadow: var(--sombra);
+  transition: transform var(--transicion), box-shadow var(--transicion);
+}
+.tarjeta-hover:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--sombra-lg);
+}
+
+/* Tarjeta con "lomo" de libro a la izquierda */
+.tarjeta-lomo { position: relative; overflow: hidden; }
+.tarjeta-lomo::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 6px;
+  background: var(--oro);
+}
+.tarjeta-lomo.lomo-coral::before  { background: var(--coral); }
+.tarjeta-lomo.lomo-salvia::before { background: var(--salvia); }
+.tarjeta-lomo.lomo-navy::before   { background: var(--navy); }
+
+/* --- Etiquetas y píldoras ------------------------------------------------ */
+.pildora {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  border-radius: 999px;
+  padding: .4rem 1rem;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: .8125rem;
+  font-weight: 600;
+  background-color: var(--papel);
+  border: 1px solid var(--linea);
+  color: var(--navy);
+}
+.pildora-oro    { background: var(--oro-suave);    border-color: rgba(232,176,75,.5);  color: #6A5425; }
+.pildora-coral  { background: var(--coral-suave);  border-color: rgba(232,91,78,.35);  color: #8E3128; }
+.pildora-salvia { background: var(--salvia-suave); border-color: rgba(107,144,128,.4); color: #345C48; }
+
+/* --- Subrayado dibujado a mano ------------------------------------------- */
+.subrayado {
+  background-image: linear-gradient(transparent 62%, rgba(232,176,75,.55) 62%);
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+  transition: background-size 900ms cubic-bezier(.22,1,.36,1);
+  padding: 0 .1em;
+}
+.subrayado.pintado { background-size: 100% 100%; }
+
+/* --- Número de capítulo -------------------------------------------------- */
+.capitulo {
+  display: grid;
+  place-items: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 50%;
+  background-color: var(--navy);
+  color: var(--crema);
+  font-family: 'Merriweather', Georgia, serif;
+  font-weight: 700;
+  font-size: 1.125rem;
+  box-shadow: var(--sombra-sm);
+  flex-shrink: 0;
+}
+
+/* --- Cabecera fija ------------------------------------------------------- */
+.cabecera {
+  transition: background-color var(--transicion), box-shadow var(--transicion), padding var(--transicion);
+}
+.cabecera.compacta {
+  background-color: rgba(247, 243, 232, .92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 1px 0 0 var(--linea), var(--sombra-sm);
+}
+
+/* Enlace de navegación con marcador de sección activa */
+.nav-enlace { position: relative; transition: color var(--transicion); }
+.nav-enlace::after {
+  content: "";
+  position: absolute;
+  left: 50%; bottom: -6px;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background-color: var(--coral);
+  transform: translate(-50%, 6px) scale(0);
+  transition: transform var(--transicion);
+}
+.nav-enlace:hover        { color: var(--coral); }
+.nav-enlace.activo       { color: var(--coral); }
+.nav-enlace.activo::after{ transform: translate(-50%, 0) scale(1); }
+
+/* Menú móvil */
+.menu-movil {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height var(--transicion);
+}
+.menu-movil.abierto { max-height: 32rem; }
+
+/* --------------------------------------------------------------------------
+   5. ANIMACIONES
+   -------------------------------------------------------------------------- */
+
+/* Aparición al hacer scroll (activada desde main.js) */
+.revelar {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 700ms cubic-bezier(.22,1,.36,1),
+              transform 700ms cubic-bezier(.22,1,.36,1);
+}
+.revelar.visible { opacity: 1; transform: none; }
+
+/* Retardos escalonados */
+.retardo-1 { transition-delay:  90ms; }
+.retardo-2 { transition-delay: 180ms; }
+.retardo-3 { transition-delay: 270ms; }
+.retardo-4 { transition-delay: 360ms; }
+.retardo-5 { transition-delay: 450ms; }
+
+/* Flotación suave de los elementos decorativos */
+@keyframes flotar {
+  0%, 100% { transform: translateY(0) rotate(var(--giro, 0deg)); }
+  50%      { transform: translateY(-14px) rotate(var(--giro, 0deg)); }
+}
+.flotante      { animation: flotar 7s ease-in-out infinite; }
+.flotante-lento{ animation: flotar 11s ease-in-out infinite; }
+
+/* Brillo de las estrellas del hero */
+@keyframes destellar {
+  0%, 100% { opacity: .25; transform: scale(.85); }
+  50%      { opacity: 1;   transform: scale(1); }
+}
+.destello { animation: destellar 3.5s ease-in-out infinite; }
+
+/* Entrada del hero */
+@keyframes entrar {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: none; }
+}
+.entrada   { animation: entrar 900ms cubic-bezier(.22,1,.36,1) both; }
+.entrada-1 { animation-delay: 100ms; }
+.entrada-2 { animation-delay: 240ms; }
+.entrada-3 { animation-delay: 380ms; }
+.entrada-4 { animation-delay: 520ms; }
+
+/* Barra de progreso de lectura */
+#barra-progreso {
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  transition: transform 120ms linear;
+}
+
+/* --------------------------------------------------------------------------
+   5.b LÍNEA DE TIEMPO · Módulo 3
+   -------------------------------------------------------------------------- */
+
+/* Riel con la cuerda que une los hitos */
+.riel-tiempo { position: relative; }
+.riel-tiempo::before {
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  top: 2.15rem;
+  height: 4px;
+  border-radius: 999px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--linea) 0 10px,
+    transparent 10px 18px
+  );
+}
+
+/* Relleno de progreso que avanza con el hito activo */
+.riel-avance {
+  position: absolute;
+  left: 0;
+  top: 2.15rem;
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--oro), var(--coral));
+  width: 0;
+  transition: width 480ms cubic-bezier(.22, 1, .36, 1);
+}
+
+/* Botón de cada hito */
+.hito {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .75rem;
+  padding: .25rem .5rem;
+  min-width: 8.5rem;
+  text-align: center;
+}
+.hito-globo {
+  display: grid;
+  place-items: center;
+  width: 4.3rem;
+  height: 4.3rem;
+  border-radius: 50%;
+  background: var(--papel);
+  border: 3px solid var(--linea);
+  font-size: 1.55rem;
+  box-shadow: var(--sombra-sm);
+  transition: transform var(--transicion), border-color var(--transicion), box-shadow var(--transicion);
+}
+.hito:hover .hito-globo { transform: translateY(-5px) scale(1.04); border-color: var(--oro); }
+
+.hito-anio {
+  font-size: .8125rem;
+  font-weight: 600;
+  color: var(--humo);
+  transition: color var(--transicion);
+}
+.hito-titulo {
+  font-family: 'Merriweather', Georgia, serif;
+  font-weight: 700;
+  font-size: .9375rem;
+  line-height: 1.3;
+  color: var(--navy);
+}
+
+/* Hito seleccionado */
+.hito[aria-selected="true"] .hito-globo {
+  background: var(--oro);
+  border-color: var(--navy);
+  transform: translateY(-6px) scale(1.1);
+  box-shadow: 0 12px 26px rgba(232, 176, 75, .45);
+}
+.hito[aria-selected="true"] .hito-anio { color: var(--coral); }
+
+/* Panel del hito */
+.panel-hito[hidden] { display: none; }
+@keyframes pasar-pagina {
+  from { opacity: 0; transform: translateY(20px) rotate(.4deg); }
+  to   { opacity: 1; transform: none; }
+}
+.panel-hito.animar { animation: pasar-pagina 560ms cubic-bezier(.22, 1, .36, 1) both; }
+
+/* Marco de imagen y su reemplazo cuando el archivo aún no existe */
+.marco-vacio {
+  display: grid;
+  place-items: center;
+  text-align: center;
+  border: 2px dashed var(--linea-fuerte);
+  border-radius: var(--radio-lg);
+  background:
+    repeating-linear-gradient(45deg, rgba(27,42,74,.03) 0 12px, transparent 12px 24px),
+    var(--crema);
+  color: var(--humo);
+  padding: 2rem;
+}
+
+
+/* --------------------------------------------------------------------------
+   5.c ACORDEONES Y TABLA COMPARATIVA · Módulo 5
+   -------------------------------------------------------------------------- */
+
+.acordeon {
+  background-color: var(--papel);
+  border: 1px solid var(--linea);
+  border-radius: var(--radio-lg);
+  box-shadow: var(--sombra-sm);
+  overflow: hidden;
+  transition: box-shadow var(--transicion);
+}
+
+/* Cabecera del acordeón */
+.acordeon-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  text-align: left;
+  padding: 1.5rem;
+  transition: background-color var(--transicion);
+}
+.acordeon-btn:hover { background-color: var(--crema); }
+
+/* Sello de color de cada corriente */
+.acordeon-sello {
+  display: grid;
+  place-items: center;
+  width: 3.75rem;
+  height: 3.75rem;
+  border-radius: 1.25rem;
+  font-size: 1.6rem;
+  flex-shrink: 0;
+  box-shadow: var(--sombra-sm);
+  transition: transform var(--transicion);
+}
+.acordeon-btn:hover .acordeon-sello              { transform: rotate(-6deg) scale(1.04); }
+.acordeon-btn[aria-expanded="true"] .acordeon-sello { transform: rotate(-6deg) scale(1.08); }
+
+.sello-oro    { background: var(--oro-suave);    border: 2px solid rgba(232,176,75,.55); }
+.sello-coral  { background: var(--coral-suave);  border: 2px solid rgba(232,91,78,.45); }
+.sello-salvia { background: var(--salvia-suave); border: 2px solid rgba(107,144,128,.5); }
+.sello-navy   { background: #E4E8F0;             border: 2px solid rgba(27,42,74,.35); }
+
+/* Flecha */
+.acordeon-flecha {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: var(--crema);
+  color: var(--navy);
+  transition: transform var(--transicion), background-color var(--transicion);
+}
+.acordeon-btn[aria-expanded="true"] .acordeon-flecha {
+  transform: rotate(180deg);
+  background: var(--oro);
+}
+
+/* Panel desplegable · sin alturas fijas */
+.acordeon-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 380ms cubic-bezier(.22, 1, .36, 1);
+}
+.acordeon-panel[data-abierto="true"] { grid-template-rows: 1fr; }
+.acordeon-contenido { overflow: hidden; min-height: 0; }
+
+/* Cinta de color al abrir */
+.acordeon-cinta { height: 5px; background: var(--oro); }
+.cinta-coral    { background: var(--coral); }
+.cinta-salvia   { background: var(--salvia); }
+.cinta-navy     { background: var(--navy); }
+
+/* Tabla comparativa */
+.tabla-comparativa { border-collapse: separate; border-spacing: 0; }
+.tabla-comparativa th,
+.tabla-comparativa td { padding: 1.15rem 1.25rem; vertical-align: top; text-align: left; }
+.tabla-comparativa thead th { background: var(--navy); color: var(--crema); font-weight: 700; }
+.tabla-comparativa tbody tr:nth-child(odd)  td,
+.tabla-comparativa tbody tr:nth-child(odd)  th { background: var(--papel); }
+.tabla-comparativa tbody tr:nth-child(even) td,
+.tabla-comparativa tbody tr:nth-child(even) th { background: var(--crema); }
+.tabla-comparativa tbody tr + tr td,
+.tabla-comparativa tbody tr + tr th { border-top: 1px solid var(--linea); }
+
+
+/* --------------------------------------------------------------------------
+   5.d QUIZ · Sección de evaluación
+   -------------------------------------------------------------------------- */
+
+.quiz-pregunta {
+  background-color: var(--papel);
+  border: 1px solid var(--linea);
+  border-radius: var(--radio-lg);
+  box-shadow: var(--sombra-sm);
+  padding: 1.75rem;
+  transition: box-shadow var(--transicion);
+}
+@media (min-width: 768px) { .quiz-pregunta { padding: 2.25rem; } }
+.quiz-pregunta:focus-within { box-shadow: var(--sombra); }
+
+/* Opción de respuesta */
+.quiz-opcion {
+  display: flex;
+  align-items: flex-start;
+  gap: .9rem;
+  border: 2px solid var(--linea);
+  border-radius: var(--radio);
+  background-color: var(--crema);
+  padding: .95rem 1.15rem;
+  color: var(--tinta);
+  transition: border-color var(--transicion), background-color var(--transicion), transform var(--transicion);
+}
+label:hover .quiz-opcion { border-color: var(--oro); transform: translateX(5px); }
+
+/* Letra A · B · C · D */
+.quiz-letra {
+  display: grid;
+  place-items: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background-color: var(--papel);
+  border: 2px solid var(--linea);
+  font-family: 'Merriweather', Georgia, serif;
+  font-weight: 700;
+  font-size: .8125rem;
+  line-height: 1;
+  transition: background-color var(--transicion), color var(--transicion), border-color var(--transicion);
+}
+
+/* Seleccionada */
+.quiz-radio:checked + .quiz-opcion {
+  border-color: var(--navy);
+  background-color: var(--papel);
+}
+.quiz-radio:checked + .quiz-opcion .quiz-letra {
+  background-color: var(--navy);
+  border-color: var(--navy);
+  color: var(--crema);
+}
+
+/* Foco por teclado sobre el radio oculto */
+.quiz-radio:focus-visible + .quiz-opcion {
+  outline: 3px solid var(--oro);
+  outline-offset: 3px;
+}
+
+/* Ya corregida */
+.quiz-opcion.correcta {
+  border-color: var(--salvia);
+  background-color: var(--salvia-suave);
+}
+.quiz-opcion.correcta .quiz-letra {
+  background-color: var(--salvia);
+  border-color: var(--salvia);
+  color: #FFFDF8;
+}
+.quiz-opcion.incorrecta {
+  border-color: var(--coral);
+  background-color: var(--coral-suave);
+}
+.quiz-opcion.incorrecta .quiz-letra {
+  background-color: var(--coral);
+  border-color: var(--coral);
+  color: #FFFDF8;
+}
+
+/* Con la pregunta corregida se apaga la interacción */
+.quiz-pregunta.resuelta label { cursor: default; }
+.quiz-pregunta.resuelta label:hover .quiz-opcion { transform: none; }
+.quiz-pregunta.resuelta label:hover .quiz-opcion:not(.correcta):not(.incorrecta) { border-color: var(--linea); }
+
+/* Explicación posterior */
+.quiz-explicacion {
+  border-left: 4px solid var(--oro);
+  border-radius: 0 var(--radio-sm) var(--radio-sm) 0;
+  background-color: var(--crema);
+  padding: .95rem 1.15rem;
+}
+
+/* Barra de avance del cuestionario */
+.quiz-avance-relleno {
+  height: 100%;
+  width: 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--oro), var(--coral));
+  transition: width 420ms cubic-bezier(.22, 1, .36, 1);
+}
+
+/* Aparición del resultado */
+@keyframes sellar {
+  0%   { opacity: 0; transform: scale(.92) rotate(-3deg); }
+  60%  { opacity: 1; transform: scale(1.03) rotate(1deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0); }
+}
+.quiz-resultado.animar { animation: sellar 620ms cubic-bezier(.22, 1, .36, 1) both; }
+
+
+/* --------------------------------------------------------------------------
+   5.e FICHAS DEL EQUIPO · tarjetas con volteo
+   -------------------------------------------------------------------------- */
+
+.ficha { perspective: 1400px; }
+
+.ficha-interior {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  transform-style: preserve-3d;
+  transition: transform 720ms cubic-bezier(.22, 1, .36, 1), box-shadow var(--transicion);
+  border-radius: var(--radio-lg);
+  box-shadow: var(--sombra);
+}
+.ficha:hover .ficha-interior { box-shadow: var(--sombra-lg); }
+
+/* El volteo y la inclinación conviven en la misma transformación */
+.ficha-interior {
+  transform:
+    rotateX(var(--inclina-x, 0deg))
+    rotateY(calc(var(--voltea, 0deg) + var(--inclina-y, 0deg)));
+}
+.ficha.volteada { --voltea: 180deg; }
+
+/* Solo la cara que se está viendo recibe clics */
+.ficha-reverso              { pointer-events: none; }
+.ficha.volteada .ficha-reverso { pointer-events: auto; }
+.ficha.volteada .ficha-frente  { pointer-events: none; }
+
+/* El contenido siempre queda por encima de las capas decorativas */
+.ficha-cara > div:not(.guarda):not(.ficha-sinfoto) { z-index: 3; }
+.ficha-frente { cursor: pointer; }
+
+/* Bloque de nombre y rol, anclado abajo */
+.ficha-pie {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+  padding: 1.5rem;
+  color: var(--crema);
+}
+.ficha-nombre {
+  font-family: 'Merriweather', Georgia, serif;
+  font-weight: 900;
+  font-size: 1.25rem;
+  line-height: 1.22;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, .55);
+}
+.ficha-rol {
+  margin-top: .45rem;
+  font-size: .875rem;
+  font-weight: 600;
+  color: var(--oro);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, .5);
+}
+
+/* Filo dorado al pasar por encima */
+.ficha-cara { transition: border-color var(--transicion); }
+.ficha:hover .ficha-frente { border-color: rgba(232, 176, 75, .65); }
+.ficha-boton  { position: relative; z-index: 4; cursor: pointer; }
+
+/* El reverso lleva bastante información: si no cabe, se desplaza */
+.ficha-reverso > div:last-child {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(232,176,75,.5) transparent;
+}
+.ficha-reverso > div:last-child::-webkit-scrollbar { width: 5px; }
+.ficha-reverso > div:last-child::-webkit-scrollbar-track { background: transparent; }
+.ficha-reverso > div:last-child::-webkit-scrollbar-thumb { background: rgba(232,176,75,.5); border-radius: 999px; }
+
+.ficha-cara {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radio-lg);
+  overflow: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border: 1px solid var(--linea);
+}
+
+/* --- Cara frontal: la fotografía --- */
+.ficha-frente { background-color: var(--navy); }
+
+.ficha-foto {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 18%;
+  transition: transform 900ms cubic-bezier(.22, 1, .36, 1);
+}
+.ficha:hover .ficha-foto { transform: scale(1.06); }
+
+/* Velo degradado para que el texto se lea siempre */
+.ficha-velo {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      to top,
+      rgba(14, 21, 36, .96) 0%,
+      rgba(14, 21, 36, .88) 22%,
+      rgba(14, 21, 36, .52) 44%,
+      rgba(14, 21, 36, .10) 68%,
+      rgba(14, 21, 36, 0) 100%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(14, 21, 36, .55) 0%,
+      rgba(14, 21, 36, .18) 18%,
+      rgba(14, 21, 36, 0) 34%
+    );
+}
+
+/* Marco cuando aún no hay fotografía */
+.ficha-sinfoto {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background:
+    repeating-linear-gradient(45deg, rgba(247,243,232,.05) 0 14px, transparent 14px 28px),
+    var(--navy-2);
+  color: rgba(247, 243, 232, .6);
+}
+
+/* --- Cara trasera: los datos --- */
+.ficha-reverso {
+  transform: rotateY(180deg);
+  background-color: var(--navy);
+  color: var(--crema);
+  display: flex;
+  flex-direction: column;
+  visibility: hidden;
+  transition: visibility 0s 360ms;
+}
+.ficha.volteada .ficha-reverso { visibility: visible; }
+.ficha.volteada .ficha-frente  { visibility: hidden; transition: visibility 0s 360ms; }
+
+/* Fila de dato */
+.ficha-dato {
+  display: flex;
+  align-items: flex-start;
+  gap: .7rem;
+  border-radius: var(--radio-sm);
+  background: rgba(255, 255, 255, .07);
+  border: 1px solid rgba(255, 255, 255, .14);
+  padding: .6rem .8rem;
+  transition: background-color var(--transicion), border-color var(--transicion);
+}
+.ficha-dato:hover { background: rgba(255, 255, 255, .12); border-color: rgba(232, 176, 75, .35); }
+.ficha-dato dt {
+  font-size: .7rem;
+  letter-spacing: .02em;
+  color: rgba(247, 243, 232, .55);
+}
+.ficha-dato dd { font-weight: 600; line-height: 1.35; }
+
+/* Botón de volteo */
+.ficha-boton {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  border-radius: 999px;
+  padding: .6rem 1.15rem;
+  font-size: .875rem;
+  font-weight: 600;
+  transition: background-color var(--transicion), transform var(--transicion), color var(--transicion);
+}
+.ficha-boton-oro    { background: var(--oro); color: var(--navy); }
+.ficha-boton-oro:hover { transform: translateY(-2px); background: #F0C46F; }
+.ficha-boton-claro  { background: rgba(255,255,255,.12); color: var(--crema); border: 1px solid rgba(255,255,255,.25); }
+.ficha-boton-claro:hover { background: rgba(255,255,255,.2); transform: translateY(-2px); }
+
+/* Cinta de liderazgo */
+.ficha-cinta {
+  pointer-events: none;
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  border-radius: 999px;
+  padding: .4rem .9rem;
+  background: var(--oro);
+  color: var(--navy);
+  font-size: .75rem;
+  font-weight: 700;
+  box-shadow: var(--sombra-sm);
+}
+
+/* Ficha vacía, a la espera de datos */
+.ficha-pendiente {
+  display: grid;
+  place-items: center;
+  text-align: center;
+  aspect-ratio: 3 / 4;
+  border: 2px dashed var(--linea-fuerte);
+  border-radius: var(--radio-lg);
+  background:
+    repeating-linear-gradient(45deg, rgba(27,42,74,.03) 0 12px, transparent 12px 24px),
+    var(--crema);
+  color: var(--humo);
+  padding: 2rem;
+}
+
+/* --------------------------------------------------------------------------
+   5.f QUIZ DESPLEGABLE, BOTÓN FLOTANTE, AVISOS Y VISOR DE IMÁGENES
+   -------------------------------------------------------------------------- */
+
+/* --- Portada del quiz --- */
+.quiz-portada { transition: box-shadow var(--transicion); }
+.quiz-portada:hover { box-shadow: var(--sombra-md); }
+#quiz-abrir { transition: background-color var(--transicion); }
+#quiz-abrir:hover { background-color: rgba(232, 176, 75, .08); }
+
+.quiz-icono { transition: transform var(--transicion); }
+#quiz-abrir:hover .quiz-icono { transform: rotate(-8deg) scale(1.06); }
+
+/* Cuerpo desplegable, sin alturas fijas */
+.quiz-cuerpo {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 480ms cubic-bezier(.22, 1, .36, 1);
+}
+.quiz-cuerpo[data-abierto="true"] { grid-template-rows: 1fr; }
+.quiz-cuerpo-interior { overflow: hidden; min-height: 0; }
+
+/* --- Botón flotante: volver arriba con anillo de progreso --- */
+.subir {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 45;
+  width: 3.5rem;
+  height: 3.5rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--papel);
+  color: var(--navy);
+  box-shadow: var(--sombra-md);
+  border: 1px solid var(--linea);
+  opacity: 0;
+  transform: translateY(18px) scale(.85);
+  pointer-events: none;
+  transition: opacity var(--transicion), transform var(--transicion), background-color var(--transicion);
+}
+.subir.visible { opacity: 1; transform: none; pointer-events: auto; }
+.subir:hover   { background: var(--oro); }
+.subir svg.anillo { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(-90deg); }
+.subir .anillo-pista  { fill: none; stroke: rgba(27,42,74,.12); stroke-width: 3; }
+.subir .anillo-avance { fill: none; stroke: var(--coral); stroke-width: 3; stroke-linecap: round; transition: stroke-dashoffset 120ms linear; }
+@media (min-width: 768px) { .subir { right: 2rem; bottom: 2rem; width: 3.75rem; height: 3.75rem; } }
+
+/* --- Avisos flotantes (toasts) --- */
+.avisos {
+  position: fixed;
+  left: 50%;
+  bottom: 1.5rem;
+  z-index: 60;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+  align-items: center;
+  pointer-events: none;
+  width: calc(100% - 2rem);
+  max-width: 26rem;
+}
+.aviso {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  border-radius: 999px;
+  padding: .8rem 1.35rem;
+  background: var(--navy);
+  color: var(--crema);
+  font-size: .9375rem;
+  font-weight: 600;
+  box-shadow: var(--sombra-lg);
+  animation: aviso-entra 380ms cubic-bezier(.22, 1, .36, 1) both;
+}
+.aviso.saliendo { animation: aviso-sale 300ms ease forwards; }
+@keyframes aviso-entra { from { opacity: 0; transform: translateY(16px) scale(.94); } to { opacity: 1; transform: none; } }
+@keyframes aviso-sale  { to   { opacity: 0; transform: translateY(10px) scale(.96); } }
+
+/* --- Visor de imágenes de la línea de tiempo --- */
+.visor {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  background: rgba(14, 21, 36, .92);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transicion), visibility 0s .32s;
+}
+.visor.abierto { opacity: 1; visibility: visible; transition: opacity var(--transicion); }
+.visor img {
+  max-width: min(100%, 1100px);
+  max-height: 82vh;
+  border-radius: var(--radio-lg);
+  box-shadow: var(--sombra-lg);
+  transform: scale(.94);
+  transition: transform 420ms cubic-bezier(.22, 1, .36, 1);
+}
+.visor.abierto img { transform: scale(1); }
+.visor-pie { margin-top: 1rem; color: rgba(247,243,232,.75); text-align: center; font-size: .9375rem; }
+.visor-cerrar {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  width: 3rem;
+  height: 3rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(255,255,255,.12);
+  border: 1px solid rgba(255,255,255,.25);
+  color: var(--crema);
+  transition: background-color var(--transicion), transform var(--transicion);
+}
+.visor-cerrar:hover { background: var(--coral); transform: rotate(90deg); }
+
+/* Pista de que la imagen se puede ampliar */
+[data-ampliable] { cursor: zoom-in; }
+
+/* --- Lienzo del confeti --- */
+#confeti {
+  position: fixed;
+  inset: 0;
+  z-index: 65;
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   5.g TARJETAS DINÁMICAS · inclinación, brillo y respuesta al toque
+   -------------------------------------------------------------------------- */
+
+.carta-3d {
+  position: relative;
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: transform 320ms cubic-bezier(.22, 1, .36, 1), box-shadow var(--transicion);
+}
+
+/* Mientras el cursor está encima el seguimiento es inmediato */
+.carta-3d.inclinando { transition: transform 90ms linear, box-shadow var(--transicion); }
+
+/* La inclinación manda sobre el desplazamiento por defecto de la tarjeta */
+.tarjeta-hover.carta-3d:hover { transform: none; }
+.carta-3d:hover { box-shadow: var(--sombra-lg); }
+
+/* Reflejo que sigue al cursor */
+.carta-brillo {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 320ms ease;
+  background: radial-gradient(
+    circle at var(--brillo-x, 50%) var(--brillo-y, 50%),
+    rgba(255, 255, 255, .55) 0%,
+    rgba(255, 255, 255, .12) 32%,
+    transparent 62%
+  );
+  mix-blend-mode: soft-light;
+}
+.carta-3d:hover .carta-brillo { opacity: 1; }
+
+/* Hundido al presionar, en ratón y en pantalla táctil */
+.carta-3d.presionada { transform: scale(.975) !important; transition: transform 130ms ease; }
+
+/* Pulso al tocar en pantallas sin cursor */
+@keyframes pulso-carta {
+  0%   { transform: scale(1); }
+  35%  { transform: scale(.972); }
+  100% { transform: scale(1); }
+}
+.carta-3d.pulsada { animation: pulso-carta 420ms cubic-bezier(.22, 1, .36, 1); }
+
+/* Las píldoras y los sellos también responden */
+.pildora { transition: transform var(--transicion), background-color var(--transicion), border-color var(--transicion); }
+.pildora:hover { transform: translateY(-2px); }
+
+@media (hover: none) {
+  .carta-brillo { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+  }
+  .revelar { opacity: 1; transform: none; }
+  .subrayado { background-size: 100% 100%; }
+  .carta-3d { transform: none !important; }
+  .carta-brillo { display: none; }
+}
+
+/* ==========================================================================
+   6. TEMA CLARO / OSCURO
+   El sitio nace en "papel crema" y puede pasarse a "tinta negra".
+   Todo el cambio ocurre reescribiendo variables; los componentes que
+   mezclan navy y crema se corrigen uno a uno más abajo.
+   ========================================================================== */
+
+:root {
+  color-scheme: light;
+  --claro:      #F7F3E8;   /* texto claro fijo, no cambia con el tema */
+  --sobre-oro:  #1B2A4A;   /* color legible encima del dorado */
+  --panel:      #1B2A4A;   /* bloques oscuros del tema claro */
+}
+
+html[data-tema="oscuro"] {
+  color-scheme: dark;
+
+  --navy:        #EFECE3;  /* pasa a ser el color de los titulares */
+  --navy-2:      #232838;
+  --navy-3:      #080A10;
+  --crema:       #12151D;  /* fondo de página */
+  --papel:       #1A1E28;  /* superficie de las tarjetas */
+  --tinta:       #E9E6DE;
+  --grafito:     #AEB4C6;
+  --humo:        #868CA1;
+
+  --oro:         #EFC069;
+  --oro-suave:   rgba(232, 176, 75, .15);
+  --coral:       #F27A6D;
+  --coral-suave: rgba(232, 91, 78, .15);
+  --salvia:      #8ABBA5;
+  --salvia-suave:rgba(107, 144, 128, .17);
+
+  --linea:        rgba(239, 236, 227, .13);
+  --linea-fuerte: rgba(239, 236, 227, .30);
+
+  --sombra-sm: 0 2px 8px rgba(0, 0, 0, .40);
+  --sombra:    0 10px 26px rgba(0, 0, 0, .48);
+  --sombra-md: 0 16px 40px rgba(0, 0, 0, .54);
+  --sombra-lg: 0 28px 64px rgba(0, 0, 0, .62);
+
+  --panel: #101420;
+  --sobre-oro: #14171F;
+}
+
+/* --- Transición amable al pulsar el interruptor -------------------------- */
+html.cambiando-tema,
+html.cambiando-tema *,
+html.cambiando-tema *::before,
+html.cambiando-tema *::after {
+  transition: background-color 420ms ease,
+              color 420ms ease,
+              border-color 420ms ease,
+              box-shadow 420ms ease !important;
+}
+
+/* --- Utilidades de Tailwind reescritas para el modo oscuro --------------- */
+html[data-tema="oscuro"] .bg-crema  { background-color: var(--crema); }
+html[data-tema="oscuro"] .bg-papel  { background-color: var(--papel); }
+html[data-tema="oscuro"] .bg-navy   { background-color: var(--panel); }
+html[data-tema="oscuro"] .bg-navy-3 { background-color: var(--navy-3); }
+
+html[data-tema="oscuro"] .text-navy    { color: var(--navy); }
+html[data-tema="oscuro"] .text-tinta   { color: var(--tinta); }
+html[data-tema="oscuro"] .text-grafito { color: var(--grafito); }
+html[data-tema="oscuro"] .text-navy\/75,
+html[data-tema="oscuro"] .text-navy\/70,
+html[data-tema="oscuro"] .text-navy\/60 { color: var(--navy); }        /* respaldo */
+html[data-tema="oscuro"] .text-navy\/75 { color: color-mix(in srgb, var(--navy) 78%, transparent); }
+html[data-tema="oscuro"] .text-navy\/70 { color: color-mix(in srgb, var(--navy) 74%, transparent); }
+html[data-tema="oscuro"] .text-navy\/60 { color: color-mix(in srgb, var(--navy) 66%, transparent); }
+
+html[data-tema="oscuro"] .text-oro         { color: #F3C97C; }
+html[data-tema="oscuro"] .text-coral       { color: #F58C80; }
+html[data-tema="oscuro"] .text-coral-hondo { color: #F58C80; }
+html[data-tema="oscuro"] .text-salvia      { color: #93C2AC; }
+
+html[data-tema="oscuro"] .bg-oro-suave    { background-color: rgba(232, 176, 75, .12); }
+html[data-tema="oscuro"] .bg-coral-suave  { background-color: rgba(232, 91, 78, .12); }
+html[data-tema="oscuro"] .bg-salvia-suave { background-color: rgba(107, 144, 128, .14); }
+
+html[data-tema="oscuro"] .border-navy  { border-color: var(--linea-fuerte); }
+html[data-tema="oscuro"] .border-navy  { border-color: color-mix(in srgb, var(--navy) 40%, transparent); }
+html[data-tema="oscuro"] .border-papel { border-color: rgba(247, 243, 232, .28); }
+
+/* --- Componentes que mezclaban fondo oscuro y texto claro ---------------- */
+html[data-tema="oscuro"] ::selection { background-color: var(--oro); color: var(--sobre-oro); }
+
+html[data-tema="oscuro"] ::-webkit-scrollbar-track { background: var(--crema); }
+html[data-tema="oscuro"] ::-webkit-scrollbar-thumb {
+  background: rgba(239, 236, 227, .20);
+  border-color: var(--crema);
+}
+html[data-tema="oscuro"] ::-webkit-scrollbar-thumb:hover { background: rgba(239, 236, 227, .34); }
+
+html[data-tema="oscuro"] .papel-grano::before {
+  background-image: radial-gradient(rgba(239, 236, 227, .06) 1px, transparent 1px);
+}
+
+html[data-tema="oscuro"] .cabecera.compacta {
+  background-color: rgba(12, 15, 22, .90);
+  box-shadow: 0 1px 0 0 var(--linea), var(--sombra-sm);
+}
+
+html[data-tema="oscuro"] .capitulo    { background-color: var(--panel); color: var(--oro); }
+html[data-tema="oscuro"] .btn-oro     { color: var(--sobre-oro); }
+html[data-tema="oscuro"] .btn-contorno:hover { background-color: rgba(239, 236, 227, .07); }
+
+html[data-tema="oscuro"] .pildora-oro    { color: #F3C97C; border-color: rgba(232, 176, 75, .40); }
+html[data-tema="oscuro"] .pildora-coral  { color: #F58C80; border-color: rgba(232, 91, 78, .38); }
+html[data-tema="oscuro"] .pildora-salvia { color: #93C2AC; border-color: rgba(107, 144, 128, .40); }
+
+html[data-tema="oscuro"] .subrayado {
+  background-image: linear-gradient(transparent 62%, rgba(232, 176, 75, .35) 62%);
+}
+
+html[data-tema="oscuro"] .hito[aria-selected="true"] .hito-globo {
+  border-color: var(--oro);
+  box-shadow: 0 12px 26px rgba(232, 176, 75, .28);
+}
+
+html[data-tema="oscuro"] .marco-vacio,
+html[data-tema="oscuro"] .ficha-pendiente {
+  background:
+    repeating-linear-gradient(45deg, rgba(239, 236, 227, .04) 0 12px, transparent 12px 24px),
+    var(--crema);
+}
+
+html[data-tema="oscuro"] .sello-oro    { background: rgba(232, 176, 75, .16); border-color: rgba(232, 176, 75, .45); }
+html[data-tema="oscuro"] .sello-coral  { background: rgba(232, 91, 78, .16);  border-color: rgba(232, 91, 78, .42); }
+html[data-tema="oscuro"] .sello-salvia { background: rgba(107, 144, 128, .18); border-color: rgba(107, 144, 128, .45); }
+html[data-tema="oscuro"] .sello-navy   { background: rgba(239, 236, 227, .10); border-color: rgba(239, 236, 227, .28); }
+html[data-tema="oscuro"] .acordeon-btn[aria-expanded="true"] .acordeon-flecha { color: var(--sobre-oro); }
+html[data-tema="oscuro"] .cinta-navy { background: var(--navy); }
+html[data-tema="oscuro"] .tarjeta-lomo.lomo-navy::before { background: var(--navy); }
+
+html[data-tema="oscuro"] .tabla-comparativa thead th { background: var(--panel); color: var(--claro); }
+
+html[data-tema="oscuro"] .quiz-radio:checked + .quiz-opcion .quiz-letra { color: var(--panel); }
+html[data-tema="oscuro"] .quiz-opcion.correcta .quiz-letra,
+html[data-tema="oscuro"] .quiz-opcion.incorrecta .quiz-letra { color: #14171F; }
+
+html[data-tema="oscuro"] .ficha-frente,
+html[data-tema="oscuro"] .ficha-reverso { background-color: var(--panel); }
+html[data-tema="oscuro"] .ficha-reverso,
+html[data-tema="oscuro"] .ficha-pie,
+html[data-tema="oscuro"] .ficha-boton-claro { color: var(--claro); }
+html[data-tema="oscuro"] .ficha-boton-oro { color: var(--sobre-oro); }
+html[data-tema="oscuro"] .ficha-cinta     { color: var(--sobre-oro); }
+html[data-tema="oscuro"] .ficha-sinfoto   { color: rgba(247, 243, 232, .55); }
+
+html[data-tema="oscuro"] .aviso { background: #232838; color: var(--claro); border: 1px solid var(--linea); }
+html[data-tema="oscuro"] .subir .anillo-pista { stroke: rgba(239, 236, 227, .14); }
+html[data-tema="oscuro"] .subir:hover { color: var(--sobre-oro); }
+
+/* Las manchas de acuarela del hero pierden fuerza sobre el fondo negro */
+html[data-tema="oscuro"] .mancha { opacity: .22; filter: blur(90px); }
+
+/* El reflejo de las tarjetas 3D se vuelve un halo tenue */
+html[data-tema="oscuro"] .carta-brillo { mix-blend-mode: screen; opacity: 0; }
+html[data-tema="oscuro"] .carta-3d:hover .carta-brillo { opacity: .35; }
+
+/* Las fotografías antiguas descansan mejor con un punto menos de brillo */
+html[data-tema="oscuro"] .panel-hito img,
+html[data-tema="oscuro"] .ficha-foto { filter: brightness(.92) contrast(1.02); }
+
+
+/* ==========================================================================
+   7. INTERRUPTOR DE TEMA
+   ========================================================================== */
+
+.btn-tema {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 1rem;
+  background-color: var(--papel);
+  border: 1px solid var(--linea);
+  color: var(--navy);
+  box-shadow: 0 4px 0 0 rgba(27, 42, 74, .14);
+  overflow: hidden;
+  transition: transform var(--transicion), background-color var(--transicion), color var(--transicion);
+}
+html[data-tema="oscuro"] .btn-tema { box-shadow: 0 4px 0 0 rgba(0, 0, 0, .45); }
+.btn-tema:hover  { transform: translateY(-2px) rotate(-6deg); background-color: var(--oro); color: var(--sobre-oro); }
+.btn-tema:active { transform: translateY(2px); }
+
+.btn-tema svg {
+  position: absolute;
+  width: 1.25rem;
+  height: 1.25rem;
+  transition: transform 520ms cubic-bezier(.22, 1, .36, 1), opacity 320ms ease;
+}
+.tema-sol  { opacity: 0; transform: rotate(-90deg) scale(.4); }
+.tema-luna { opacity: 1; transform: none; }
+html[data-tema="oscuro"] .tema-sol  { opacity: 1; transform: none; }
+html[data-tema="oscuro"] .tema-luna { opacity: 0; transform: rotate(90deg) scale(.4); }
+
+/* Versión ancha para el menú móvil */
+.btn-tema-ancho {
+  width: 100%;
+  height: auto;
+  justify-content: flex-start;
+  gap: .75rem;
+  padding: .85rem 1rem;
+  border-radius: 1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+.btn-tema-ancho svg { position: static; }
+.btn-tema-ancho .tema-sol,
+.btn-tema-ancho .tema-luna { display: none; }
+html[data-tema="claro"]  .btn-tema-ancho .tema-luna { display: block; }
+html[data-tema="oscuro"] .btn-tema-ancho .tema-sol  { display: block; opacity: 1; transform: none; }
+
+
+/* ==========================================================================
+   8. ÍNDICE LATERAL CON PUNTOS
+   ========================================================================== */
+
+.dock {
+  position: fixed;
+  right: 1.5rem;
+  top: 50%;
+  z-index: 40;
+  transform: translateY(-50%);
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: .55rem;
+  padding: .9rem .55rem;
+  border-radius: 999px;
+  background: var(--papel);                                   /* respaldo */
+  background: color-mix(in srgb, var(--papel) 88%, transparent);
+  border: 1px solid var(--linea);
+  box-shadow: var(--sombra);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  opacity: 0;
+  transition: opacity var(--transicion);
+}
+.dock.visible { opacity: 1; }
+@media (min-width: 1280px) { .dock { display: flex; } }
+
+.dock-punto {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+}
+.dock-punto::before {
+  content: "";
+  width: .5rem;
+  height: .5rem;
+  border-radius: 50%;
+  background: var(--linea-fuerte);
+  transition: transform var(--transicion), background-color var(--transicion);
+}
+.dock-punto:hover::before { transform: scale(1.5); background: var(--oro); }
+.dock-punto.activo::before {
+  transform: scale(1.75);
+  background: var(--coral);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--coral) 22%, transparent);
+}
+.dock-punto.leido::before { background: var(--salvia); }
+.dock-punto.activo.leido::before { background: var(--coral); }
+
+/* Etiqueta que aparece al pasar el cursor */
+.dock-punto span {
+  position: absolute;
+  right: calc(100% + .85rem);
+  white-space: nowrap;
+  border-radius: 999px;
+  padding: .35rem .8rem;
+  font-size: .8125rem;
+  font-weight: 600;
+  background: var(--panel);
+  color: var(--claro);
+  box-shadow: var(--sombra-sm);
+  opacity: 0;
+  transform: translateX(8px);
+  pointer-events: none;
+  transition: opacity var(--transicion), transform var(--transicion);
+}
+.dock-punto:hover span,
+.dock-punto:focus-visible span { opacity: 1; transform: none; }
+
+/* Anillo de módulos estudiados, arriba del todo */
+.dock-progreso {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 2.15rem;
+  height: 2.15rem;
+  margin-bottom: .2rem;
+  font-size: .6875rem;
+  font-weight: 700;
+  color: var(--navy);
+}
+.dock-progreso svg { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(-90deg); }
+.dock-progreso .pista { fill: none; stroke: var(--linea-fuerte); stroke-width: 7; }
+.dock-progreso .avance {
+  fill: none;
+  stroke: var(--salvia);
+  stroke-width: 7;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 620ms cubic-bezier(.22, 1, .36, 1);
+}
+.dock-separador { width: 1rem; height: 1px; background: var(--linea); margin: .15rem 0; }
+
+
+/* ==========================================================================
+   9. BUSCADOR RÁPIDO
+   ========================================================================== */
+
+.buscador {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: start center;
+  padding: 6rem 1.25rem 2rem;
+  background: rgba(8, 10, 16, .70);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transicion), visibility 0s .32s;
+}
+.buscador.abierto { opacity: 1; visibility: visible; transition: opacity var(--transicion); }
+
+.buscador-caja {
+  width: min(100%, 42rem);
+  border-radius: var(--radio-lg);
+  background: var(--papel);
+  border: 1px solid var(--linea);
+  box-shadow: var(--sombra-lg);
+  overflow: hidden;
+  transform: translateY(-14px) scale(.97);
+  transition: transform 380ms cubic-bezier(.22, 1, .36, 1);
+}
+.buscador.abierto .buscador-caja { transform: none; }
+
+.buscador-cabeza {
+  display: flex;
+  align-items: center;
+  gap: .85rem;
+  padding: 1.1rem 1.35rem;
+  border-bottom: 1px solid var(--linea);
+}
+.buscador-campo {
+  flex: 1;
+  border: 0;
+  background: transparent;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 1.0625rem;
+  color: var(--tinta);
+  outline: none;
+}
+.buscador-campo::placeholder { color: var(--humo); }
+.buscador-tecla {
+  border-radius: .5rem;
+  padding: .2rem .5rem;
+  font-size: .6875rem;
+  font-weight: 700;
+  color: var(--humo);
+  border: 1px solid var(--linea);
+  background: var(--crema);
+}
+
+.buscador-lista {
+  max-height: min(56vh, 26rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: .5rem;
+}
+.buscador-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  border-radius: var(--radio);
+  padding: .8rem 1rem;
+  transition: background-color 160ms ease;
+}
+.buscador-item:hover,
+.buscador-item.marcado { background: var(--crema); }
+.buscador-item.marcado { box-shadow: inset 3px 0 0 0 var(--oro); }
+.buscador-item b { color: var(--coral); font-weight: 700; }
+
+.buscador-origen {
+  display: block;
+  font-size: .6875rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--humo);
+  margin-bottom: .2rem;
+}
+.buscador-texto {
+  display: block;
+  font-size: .9375rem;
+  line-height: 1.45;
+  color: var(--tinta);
+}
+.buscador-vacio { padding: 2.25rem 1rem; text-align: center; color: var(--humo); font-size: .9375rem; }
+.buscador-pie {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: .75rem 1.35rem;
+  border-top: 1px solid var(--linea);
+  font-size: .75rem;
+  color: var(--humo);
+}
+
+/* Resaltado del fragmento encontrado */
+@keyframes latido-resalte {
+  0%   { background-color: rgba(232, 176, 75, .55); }
+  100% { background-color: transparent; }
+}
+.resaltado {
+  animation: latido-resalte 2.6s ease-out forwards;
+  border-radius: 8px;
+  box-shadow: 0 0 0 6px rgba(232, 176, 75, .18);
+}
+
+
+/* ==========================================================================
+   10. PANEL DE ATAJOS Y BOTONES FLOTANTES
+   ========================================================================== */
+
+.flotantes {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 5.25rem;
+  z-index: 45;
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+}
+@media (min-width: 768px) { .flotantes { right: 2rem; bottom: 6.25rem; } }
+
+.flotante-btn {
+  width: 3rem;
+  height: 3rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--papel);
+  color: var(--navy);
+  border: 1px solid var(--linea);
+  box-shadow: var(--sombra);
+  opacity: 0;
+  transform: translateY(14px) scale(.85);
+  pointer-events: none;
+  transition: opacity var(--transicion), transform var(--transicion), background-color var(--transicion);
+}
+.flotante-btn.visible { opacity: 1; transform: none; pointer-events: auto; }
+.flotante-btn:hover { background: var(--oro); color: var(--sobre-oro); transform: translateY(-3px); }
+
+.atajos {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  background: rgba(8, 10, 16, .70);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transicion), visibility 0s .32s;
+}
+.atajos.abierto { opacity: 1; visibility: visible; transition: opacity var(--transicion); }
+.atajos-caja {
+  width: min(100%, 34rem);
+  border-radius: var(--radio-lg);
+  background: var(--papel);
+  border: 1px solid var(--linea);
+  box-shadow: var(--sombra-lg);
+  padding: 1.75rem;
+  transform: scale(.95);
+  transition: transform 380ms cubic-bezier(.22, 1, .36, 1);
+}
+.atajos.abierto .atajos-caja { transform: none; }
+.atajo-fila {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: .55rem 0;
+  border-bottom: 1px dashed var(--linea);
+  font-size: .9375rem;
+  color: var(--tinta);
+}
+.atajo-fila:last-of-type { border-bottom: 0; }
+kbd {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.9rem;
+  border-radius: .5rem;
+  padding: .25rem .5rem;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: .75rem;
+  font-weight: 700;
+  color: var(--navy);
+  background: var(--crema);
+  border: 1px solid var(--linea);
+  box-shadow: 0 2px 0 0 var(--linea);
+}
+
+/* Ajuste del tamaño de la letra */
+.texto-ajuste { display: flex; align-items: center; gap: .5rem; }
+.texto-ajuste button {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: .75rem;
+  background: var(--crema);
+  border: 1px solid var(--linea);
+  color: var(--navy);
+  font-weight: 700;
+  transition: background-color var(--transicion), transform var(--transicion);
+}
+.texto-ajuste button:hover { background: var(--oro); color: var(--sobre-oro); transform: translateY(-2px); }
+
+
+/* ==========================================================================
+   11. MICROINTERACCIONES
+   ========================================================================== */
+
+/* Onda al pulsar un botón */
+.btn, .ficha-boton, .acordeon-btn, .flotante-btn, .btn-tema { position: relative; overflow: hidden; }
+.onda {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  background: currentColor;
+  opacity: .28;
+  pointer-events: none;
+  animation: onda-crece 620ms cubic-bezier(.22, 1, .36, 1) forwards;
+}
+@keyframes onda-crece {
+  to { transform: scale(2.6); opacity: 0; }
+}
+
+/* La cabecera se encoge un poco al bajar */
+.cabecera.compacta .capitulo { transform: scale(.96); }
+
+/* Módulo ya estudiado: sello discreto en el número de capítulo */
+.capitulo { position: relative; }
+.capitulo::after {
+  content: "✓";
+  position: absolute;
+  right: -.25rem;
+  bottom: -.25rem;
+  width: 1.35rem;
+  height: 1.35rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--salvia);
+  color: #FFFDF8;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: .75rem;
+  font-weight: 700;
+  transform: scale(0);
+  transition: transform 460ms cubic-bezier(.34, 1.56, .64, 1);
+}
+section[data-estudiado="true"] .capitulo::after { transform: scale(1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .onda { display: none; }
+  .buscador-caja, .atajos-caja { transform: none !important; }
+  .resaltado { animation: none; background-color: rgba(232, 176, 75, .3); }
+}
+
+
+/* --------------------------------------------------------------------------
+   12. PIEZAS INYECTADAS DESDE JS
+   Llevan clases propias para no depender de que Tailwind genere utilidades
+   sobre elementos creados después de cargar la página.
+   -------------------------------------------------------------------------- */
+
+.solo-lectores {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.flotante-btn svg { width: 1.25rem; height: 1.25rem; }
+
+.atajos-titulo {
+  font-family: 'Merriweather', Georgia, serif;
+  font-weight: 900;
+  font-size: 1.5rem;
+  color: var(--navy);
+  margin-bottom: .25rem;
+}
+.atajos-sub { font-size: .875rem; color: var(--grafito); margin-bottom: 1.25rem; }
+.atajos-mini { padding: .5rem 1rem !important; font-size: .8125rem !important; }
+.atajos-cerrar { width: 100%; margin-top: 1.5rem; }
+
+
+/* --------------------------------------------------------------------------
+   13. IMPRESIÓN
+   Al imprimir la guía se abre todo el contenido plegado y desaparecen los
+   controles que solo tienen sentido en pantalla.
+   -------------------------------------------------------------------------- */
+
+@media print {
+  .cabecera, .dock, .flotantes, .subir, .avisos,
+  .buscador, .atajos, .visor, #confeti, #barra-progreso { display: none !important; }
+
+  html, body { background: #fff !important; color: #000 !important; }
+  main { padding-top: 0 !important; }
+
+  .acordeon-panel { grid-template-rows: 1fr !important; }
+  .acordeon-contenido { overflow: visible !important; }
+  .panel-hito[hidden] { display: block !important; }
+  .revelar { opacity: 1 !important; transform: none !important; }
+  .tarjeta, .acordeon, .quiz-pregunta { box-shadow: none !important; border: 1px solid #ccc !important; }
+
+  section { break-inside: avoid; page-break-inside: avoid; }
+  h2, h3 { break-after: avoid; page-break-after: avoid; }
+  a[href^="http"]::after { content: " (" attr(href) ")"; font-size: .75em; color: #555; }
+}
+
+html[data-tema="oscuro"] .bg-oro.text-navy,
+html[data-tema="oscuro"] .bg-oro .text-navy { color: var(--sobre-oro); }
